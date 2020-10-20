@@ -404,8 +404,6 @@ int main(int argc, char *argv[]) {
 			default: success = false;
 		}
 		if (success) {
-			drawBoard(board);
-			usleep(150000);
 			addRandom(board);
 			drawBoard(board);
 			if (gameEnded(board)) {
