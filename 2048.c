@@ -357,7 +357,7 @@ void signal_callback_handler(int signum) {
 }
 
 int main(int argc, char *argv[]) {
-	uint8_t board[SIZE][SIZE];
+	uint8_t board[SIZE][SIZE], prev_board[SIZE][SIZE];
 	char c;
 	bool success;
 
@@ -377,6 +377,7 @@ int main(int argc, char *argv[]) {
 	signal(SIGINT, signal_callback_handler);
 
 	initBoard(board);
+	memcpy(prev_board, board, SIZE*SIZE*sizeof(uint8_t));
 	setBufferedInput(false);
 	while (true) {
 		c=getchar();
@@ -388,19 +389,27 @@ int main(int argc, char *argv[]) {
 			case 97:	// 'a' key
 			case 104:	// 'h' key
 			case 68:	// left arrow
-				success = moveLeft(board);  break;
+				memcpy(prev_board, board, SIZE*SIZE*sizeof(uint8_t));
+				success = moveLeft(board);
+				break;
 			case 100:	// 'd' key
 			case 108:	// 'l' key
 			case 67:	// right arrow
-				success = moveRight(board); break;
+				memcpy(prev_board, board, SIZE*SIZE*sizeof(uint8_t));
+				success = moveRight(board);
+				break;
 			case 119:	// 'w' key
 			case 107:	// 'k' key
 			case 65:	// up arrow
-				success = moveUp(board);    break;
+				memcpy(prev_board, board, SIZE*SIZE*sizeof(uint8_t));
+				success = moveUp(board);
+				break;
 			case 115:	// 's' key
 			case 106:	// 'j' key
 			case 66:	// down arrow
-				success = moveDown(board);  break;
+				memcpy(prev_board, board, SIZE*SIZE*sizeof(uint8_t));
+				success = moveDown(board);
+				break;
 			default: success = false;
 		}
 		if (success) {
@@ -425,6 +434,10 @@ int main(int argc, char *argv[]) {
 			if (c=='y') {
 				initBoard(board);
 			}
+			drawBoard(board);
+		}
+		if (c=='u') {
+			memcpy(board, prev_board, SIZE*SIZE*sizeof(uint8_t));
 			drawBoard(board);
 		}
 	}
