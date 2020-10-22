@@ -76,6 +76,10 @@ void drawBoard(uint8_t board[SIZE][SIZE]) {
 	}
 	printf("\n");
 	printf("        ←,↑,→,↓ or q        \n");
+	printf("         u for undo         \n");
+	printf("        r for restart       \n");
+	printf("\033[A"); // one line up
+	printf("\033[A"); // one line up
 	printf("\033[A"); // one line up
 }
 
@@ -416,12 +420,12 @@ int main(int argc, char *argv[]) {
 			addRandom(board);
 			drawBoard(board);
 			if (gameEnded(board)) {
-				printf("         GAME OVER          \n");
+				printf("         GAME OVER          \n                   \n                     \n");
 				break;
 			}
 		}
 		if (c=='q') {
-			printf("        QUIT? (y/n)         \n");
+			printf("        QUIT? (y/n)         \n                   \n                     \n");
 			c=getchar();
 			if (c=='y') {
 				break;
@@ -429,7 +433,7 @@ int main(int argc, char *argv[]) {
 			drawBoard(board);
 		}
 		if (c=='r') {
-			printf("       RESTART? (y/n)       \n");
+			printf("       RESTART? (y/n)       \n                   \n                     \n");
 			c=getchar();
 			if (c=='y') {
 				initBoard(board);
